@@ -6,7 +6,7 @@
 package ch.sbb.scion.rcp.microfrontend.browser;
 
 /**
- * An object which should be disposed of to free up resources when no longer needed.
+ * An object which should be disposed to free up the allocated resources when no longer needed.
  */
 public interface Disposable {
 
