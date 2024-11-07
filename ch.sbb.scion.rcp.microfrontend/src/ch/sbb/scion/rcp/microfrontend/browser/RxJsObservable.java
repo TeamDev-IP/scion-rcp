@@ -1,12 +1,12 @@
 package ch.sbb.scion.rcp.microfrontend.browser;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
+import java.lang.reflect.Type;
+
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.browser.Browser;
 
 import ch.sbb.scion.rcp.microfrontend.IDisposable;
 import ch.sbb.scion.rcp.microfrontend.MessageClient;
@@ -23,11 +23,11 @@ import ch.sbb.scion.rcp.microfrontend.subscriber.ISubscription;
  */
 public class RxJsObservable<T> {
 
-  private CompletableFuture<Browser> whenBrowser;
+  private CompletableFuture<BrowserView> whenBrowser;
   private Type clazz;
   private String rxjsObservableIIFE;
 
-  public RxJsObservable(CompletableFuture<Browser> browser, String rxjsObservableIIFE, Type clazz) {
+  public RxJsObservable(CompletableFuture<BrowserView> browser, String rxjsObservableIIFE, final Type clazz) {
     this.whenBrowser = browser;
     this.rxjsObservableIIFE = rxjsObservableIIFE;
     this.clazz = clazz;

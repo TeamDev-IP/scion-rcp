@@ -8,10 +8,6 @@ import java.util.concurrent.CompletableFuture;
 import java.lang.reflect.Type;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.ProgressAdapter;
-import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
@@ -21,6 +17,9 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.component.annotations.Reference;
 
 import ch.sbb.scion.rcp.microfrontend.RouterOutlet;
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewFactory;
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewType;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaCallback;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaScriptExecutor;
 import ch.sbb.scion.rcp.microfrontend.host.IntentInterceptorInstaller.IntentInterceptorDescriptor;
@@ -49,8 +48,8 @@ public class MicrofrontendPlatformRcpHost {
   private final List<MessageInterceptorDescriptor<?>> messageInterceptors = new ArrayList<>();
   private final List<IntentInterceptorDescriptor<?>> intentInterceptors = new ArrayList<>();
 
-  public Browser hostBrowser;
-  public CompletableFuture<Browser> whenHostBrowser = new CompletableFuture<>();
+  public BrowserView hostBrowser;
+  public CompletableFuture<BrowserView> whenHostBrowser = new CompletableFuture<>();
 
   @Reference
   private MessageInterceptorInstaller messageInterceptorInstaller;
@@ -63,7 +62,7 @@ public class MicrofrontendPlatformRcpHost {
    *
    * @see "https://scion-microfrontend-platform-api.vercel.app/classes/MicrofrontendPlatformHost.html#start"
    */
-  public CompletableFuture<Browser> start(final MicrofrontendPlatformConfig config, final boolean headless) {
+  public CompletableFuture<BrowserView> start(final MicrofrontendPlatformConfig config, final boolean headless) {
     // Create the shell
     shell = new Shell(Display.getDefault());
     shell.setLayout(new FillLayout());
@@ -77,20 +76,15 @@ public class MicrofrontendPlatformRcpHost {
         new Resource(Resources.get("js/helpers.js"), "application/javascript", "utf-8"))).start();
 
     // Create the browser and
-    hostBrowser = new Browser(shell, SWT.EDGE);
-    hostBrowser.addProgressListener(new ProgressAdapter() {
+    hostBrowser = BrowserViewFactory.createBrowserView(BrowserViewType.JXBROWSER, shell);
 
-      @Override
-      public void completed(final ProgressEvent event) {
-        startHost(config);
-      };
-    });
+    hostBrowser.addNavigationListener(() -> startHost(config));
 
     if (!headless) {
       shell.open();
     }
 
-    hostBrowser.setUrl(String.format("http://localhost:%d/host.html", Integer.valueOf(webserver.getPort())));
+    hostBrowser.loadUrl(String.format("http://localhost:%d/host.html", Integer.valueOf(webserver.getPort())));
     return whenHostBrowser;
   }
 

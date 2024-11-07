@@ -20,18 +20,18 @@ import java.net.URLDecoder;
 import javax.inject.Inject;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
-import org.eclipse.swt.browser.ProgressAdapter;
-import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewType;
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewFactory;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaCallback;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaScriptExecutor;
+import ch.sbb.scion.rcp.microfrontend.browser.NavigationListener;
 import ch.sbb.scion.rcp.microfrontend.internal.ContextInjectors;
 import ch.sbb.scion.rcp.microfrontend.internal.Resources;
 import ch.sbb.scion.rcp.microfrontend.model.Application;
@@ -50,7 +50,7 @@ public final class RouterOutlet extends Composite implements DisposeListener {
   private static final boolean BRIDGE_LOGGER_ENABLED = false;
 
   private final RouterOutletProxy routerOutletProxy;
-  private final Browser browser;
+  private final BrowserView browser;
   private URL url;
   private final IDisposable navigator;
   private final IDisposable keystrokeDispatcher;
@@ -78,25 +78,26 @@ public final class RouterOutlet extends Composite implements DisposeListener {
 
     routerOutletProxy = new RouterOutletProxy(outletName);
 
-    browser = new Browser(this, SWT.EDGE);
-    browser.addProgressListener(new ProgressAdapter() {
+    browser = BrowserViewFactory.createBrowserView(BrowserViewType.JXBROWSER, this);
+    browser.addNavigationListener(new NavigationListener() {
 
       private final List<IDisposable> disposables = new ArrayList<>();
 
       @Override
-      public void completed(final ProgressEvent event) {
+      public void onFrameLoadFinished() {
         // is invoked when completed loading the app, or when reloading it, e.g., due to
         // hot code replacement during development
         disposables.forEach(IDisposable::dispose);
         disposables.clear();
 
-        browser.execute(Resources.readString("js/helpers.js"));
+        browser.executeJavaScript(Resources.readString("js/helpers.js"));
         var clientToSciRouterOutletMessageDispatcher = installClientToSciRouterOutletMessageDispatcher();
         var sciRouterOutletToClientMessageDispatcher = installSciRouterOutletToClientMessageDispatcher();
 
         disposables.add(clientToSciRouterOutletMessageDispatcher);
         disposables.add(sciRouterOutletToClientMessageDispatcher);
       }
+
     });
 
     navigator = installRouter(outletName);
@@ -140,7 +141,7 @@ public final class RouterOutlet extends Composite implements DisposeListener {
     return routerOutletProxy.onKeystroke(event -> {
       keystrokeTarget.setFocus();
       // Prevent infinite cycle:
-      if (browser.isFocusControl()) {
+      if (browser.isFocused()) {
         throw new IllegalStateException(
             "Browser has focus. Make sure that the keystrokeTarget is not a parent of this SciRouterOutlet and," + //
                 "that the keystrokeTarget can gain focus; i.e., it does not have the SWT.NO_FOCUS style bit set.");
