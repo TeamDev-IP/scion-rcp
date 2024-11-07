@@ -48,7 +48,7 @@ public class SwtBrowserView extends AbstractBrowserView {
 
   @Override
   public Disposable registerJsFunction(final String name, final boolean once, final Consumer<Object[]> callback) {
-    BrowserFunction browserFunction = new BrowserFunction(browser, name) {
+    var browserFunction = new BrowserFunction(browser, name) {
 
       @Override
       public Boolean function(final Object[] arguments) {

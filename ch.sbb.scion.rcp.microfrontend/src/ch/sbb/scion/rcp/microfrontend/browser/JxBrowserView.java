@@ -53,7 +53,7 @@ public class JxBrowserView extends AbstractBrowserView {
   public Disposable registerJsFunction(final String name, final boolean once, final Consumer<Object[]> callback) {
     JsObject window = browserView.getBrowser().mainFrame().orElseThrow().executeJavaScript("window");
     // Define the `JsFunctionCallback` to handle invocations from JavaScript.
-    JsFunctionCallback jsFunctionCallback = new JsFunctionCallback() {
+    var jsFunctionCallback = new JsFunctionCallback() {
 
       @Override
       public Object invoke(final Object... args) {
