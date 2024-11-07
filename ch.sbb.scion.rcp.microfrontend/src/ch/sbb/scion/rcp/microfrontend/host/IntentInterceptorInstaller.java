@@ -62,8 +62,8 @@ public class IntentInterceptorInstaller {
     public IntentInterceptor<T> interceptor;
     public Type payloadClazz;
 
-    public IntentInterceptorDescriptor(String type, Qualifier qualifier, IntentInterceptor<T> interceptor,
-        final Type payloadClazz) {
+    public IntentInterceptorDescriptor(String type, Qualifier qualifier, 
+                                       IntentInterceptor<T> interceptor, final Type payloadClazz) {
       this.type = type;
       this.qualifier = qualifier;
       this.interceptor = interceptor;

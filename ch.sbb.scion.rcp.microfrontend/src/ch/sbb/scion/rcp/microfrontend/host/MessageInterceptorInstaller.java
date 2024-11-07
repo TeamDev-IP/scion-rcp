@@ -37,7 +37,7 @@ public class MessageInterceptorInstaller {
    * Registers the passed interceptor in the SCION Microfrontend Platform. Intercepted messages are delegated to the passed callback.
    */
   private <T> void registerInterceptor(final JavaCallback interceptorCallback, final MessageInterceptorDescriptor<T> interceptorDescriptor,
-      final BrowserView hostBrowser) {
+                                       final BrowserView hostBrowser) {
     new JavaScriptExecutor(hostBrowser, Resources.readString("js/host/register-message-interceptor.js"))
         .replacePlaceholder("interceptorCallback", interceptorCallback.name)
         .replacePlaceholder("topic", interceptorDescriptor.topic, Flags.ToJson).replacePlaceholder("refs.Beans", Refs.Beans)
@@ -50,7 +50,7 @@ public class MessageInterceptorInstaller {
    * Creates the Java callback for intercepting messages.
    */
   private <T> JavaCallback createJavaInterceptorCallback(final MessageInterceptorDescriptor<T> interceptorDescriptor,
-      final BrowserView hostBrowser) {
+                                                         final BrowserView hostBrowser) {
     return new JavaCallback(hostBrowser, args -> {
       TopicMessage<T> message = GsonFactory.create().fromJson((String) args[0],
           new ParameterizedType(TopicMessage.class, interceptorDescriptor.payloadClazz));
@@ -64,7 +64,8 @@ public class MessageInterceptorInstaller {
     public MessageInterceptor<T> interceptor;
     public Type payloadClazz;
 
-    public MessageInterceptorDescriptor(final String topic, final MessageInterceptor<T> interceptor, final Type payloadClazz) {
+    public MessageInterceptorDescriptor(final String topic, final MessageInterceptor<T> interceptor,
+                                        final Type payloadClazz) {
       this.topic = topic;
       this.interceptor = interceptor;
       this.payloadClazz = payloadClazz;

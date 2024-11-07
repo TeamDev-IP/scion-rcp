@@ -97,7 +97,6 @@ public final class RouterOutlet extends Composite implements DisposeListener {
         disposables.add(clientToSciRouterOutletMessageDispatcher);
         disposables.add(sciRouterOutletToClientMessageDispatcher);
       }
-
     });
 
     navigator = installRouter(outletName);
