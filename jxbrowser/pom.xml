@@ -15,7 +15,6 @@
 
 	<name>JxBrowser Core API and SWT integration</name>
 
-
 	<build>
 		<plugins>
 			<plugin>
