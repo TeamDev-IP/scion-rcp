@@ -35,7 +35,7 @@ public final class BrowserViewFactory {
    *          The parent composite in which the browser view will be embedded. Must not be {@code null}.
    * @return A new {@link BrowserView} instance created with the specified type and embedded in the given composite.
    */
-  public static AbstractBrowserView createBrowserView(final BrowserViewType type, final Composite composite) {
+  public static ch.sbb.scion.rcp.microfrontend.browser.BrowserView createBrowserView(final BrowserViewType type, final Composite composite) {
     if (type == BrowserViewType.JXBROWSER) {
       var engine = Engine.newInstance(EngineOptions.newBuilder(HARDWARE_ACCELERATED).licenseKey("your_key").build());
       var browser = engine.newBrowser();
