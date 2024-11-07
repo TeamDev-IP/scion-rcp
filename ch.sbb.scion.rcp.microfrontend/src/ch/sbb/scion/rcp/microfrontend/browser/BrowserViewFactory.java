@@ -15,8 +15,14 @@ import com.teamdev.jxbrowser.engine.EngineOptions;
 import com.teamdev.jxbrowser.view.swt.BrowserView;
 
 /**
- * Factory class for creating different types of {@link BrowserView} instances. This class provides methods to create browser views for both
- * JxBrowser and SWT environments.
+ * Creates different types of {@link BrowserView} instances.
+ * 
+ * <p>Supports the following browser implementations:
+ * <ul> 
+ *    <li>{@link JxBrowserView},</li>
+ *    <li>{@link SwtBrowserView}.</li>
+ * </ul>
+ * 
  */
 public final class BrowserViewFactory {
 

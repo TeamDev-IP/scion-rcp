@@ -52,17 +52,17 @@ public class JxBrowserView extends AbstractBrowserView {
   @Override
   public Disposable registerJsFunction(final String name, final boolean once, final Consumer<Object[]> callback) {
     JsObject window = browserView.getBrowser().mainFrame().orElseThrow().executeJavaScript("window");
-    // Define the JsFunctionCallback to handle invocations from JavaScript
+    // Define the `JsFunctionCallback` to handle invocations from JavaScript.
     JsFunctionCallback jsFunctionCallback = new JsFunctionCallback() {
 
       @Override
       public Object invoke(final Object... args) {
         if (once) {
-          // Remove the callback from the JavaScript context after one use
+          // Remove the callback from the JavaScript context after one use.
           window.removeProperty(name);
         }
 
-        // Execute the callback in SWT's display thread
+        // Execute the callback in SWT's display thread.
         // Invoke the callback asynchronously to first complete the invocation of this browser function.
         // Otherwise, creating a new {@link Browser} instance in the callback would lead to a deadlock.
         browserView.getDisplay().asyncExec(() -> callback.accept(args));
@@ -71,7 +71,7 @@ public class JxBrowserView extends AbstractBrowserView {
       }
     };
 
-    // Bind the JavaScript function to the `window` object
+    // Bind the JavaScript function to the `window` object.
     window.putProperty(name, jsFunctionCallback);
 
     return new Disposable() {

@@ -6,7 +6,7 @@
 package ch.sbb.scion.rcp.microfrontend.browser;
 
 /**
- * A listener for receiving browser view navigation notifications.
+ * A listener for receiving the navigation notifications from the browser view.
  */
 public interface NavigationListener {
 
