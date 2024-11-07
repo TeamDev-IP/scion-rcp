@@ -64,7 +64,8 @@ public class MessageInterceptorInstaller {
     public MessageInterceptor<T> interceptor;
     public Type payloadClazz;
 
-    public MessageInterceptorDescriptor(final String topic, final MessageInterceptor<T> interceptor,
+    public MessageInterceptorDescriptor(final String topic,
+                                        final MessageInterceptor<T> interceptor,
                                         final Type payloadClazz) {
       this.topic = topic;
       this.interceptor = interceptor;
