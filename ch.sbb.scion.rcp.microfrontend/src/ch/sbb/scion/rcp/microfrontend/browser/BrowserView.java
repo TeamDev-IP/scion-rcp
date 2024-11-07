@@ -64,7 +64,7 @@ public interface BrowserView {
    * @param callback
    *          The callback to execute when the function is called. Must not be {@code null}.
    */
-  DisposableJsFunction registerJsFunction(String name, boolean once, Consumer<Object[]> callback);
+  Disposable registerJsFunction(String name, boolean once, Consumer<Object[]> callback);
 
   /**
    * Returns the {@link Display} instance of this browser view.

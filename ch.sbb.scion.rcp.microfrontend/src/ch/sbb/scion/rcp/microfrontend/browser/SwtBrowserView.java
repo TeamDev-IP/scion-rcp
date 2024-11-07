@@ -47,7 +47,7 @@ public class SwtBrowserView extends AbstractBrowserView {
   }
 
   @Override
-  public DisposableJsFunction registerJsFunction(final String name, final boolean once, final Consumer<Object[]> callback) {
+  public Disposable registerJsFunction(final String name, final boolean once, final Consumer<Object[]> callback) {
     BrowserFunction browserFunction = new BrowserFunction(browser, name) {
 
       @Override
@@ -62,7 +62,7 @@ public class SwtBrowserView extends AbstractBrowserView {
       }
     };
 
-    return new DisposableJsFunction() {
+    return new Disposable() {
 
       @Override
       public void dispose() {
