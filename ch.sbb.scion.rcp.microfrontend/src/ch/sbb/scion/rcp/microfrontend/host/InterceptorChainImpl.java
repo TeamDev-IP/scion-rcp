@@ -13,13 +13,13 @@ class InterceptorChainImpl implements InterceptorChain {
   private final BrowserView hostBrowser;
   private final String nextCallbackName;
 
-  InterceptorChainImpl(BrowserView hostBrowser, String nextCallbackName) {
+  InterceptorChainImpl(final BrowserView hostBrowser, final String nextCallbackName) {
     this.hostBrowser = hostBrowser;
     this.nextCallbackName = nextCallbackName;
   }
 
   @Override
-  public void doContinue(Message messageOut) {
+  public void doContinue(final Message messageOut) {
     new JavaScriptExecutor(hostBrowser, "/@@storage@@/['/@@nextCallbackName@@/'](/@@helpers.fromJson@@/('/@@messageOut@@/'));")
         .replacePlaceholder("nextCallbackName", nextCallbackName).replacePlaceholder("messageOut", messageOut, Flags.ToJson)
         .replacePlaceholder("storage", Scripts.Storage).replacePlaceholder("helpers.fromJson", Helpers.fromJson).execute();

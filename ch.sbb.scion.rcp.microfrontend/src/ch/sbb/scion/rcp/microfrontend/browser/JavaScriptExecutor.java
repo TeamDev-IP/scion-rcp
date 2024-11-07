@@ -13,20 +13,20 @@ public class JavaScriptExecutor {
   private boolean asyncFunction;
   private Script browserScript;
 
-  public JavaScriptExecutor(BrowserView browser, String script) {
+  public JavaScriptExecutor(final BrowserView browser, final String script) {
     this(CompletableFuture.completedFuture(browser), script);
   }
 
-  public JavaScriptExecutor(CompletableFuture<BrowserView> browser, String script) {
+  public JavaScriptExecutor(final CompletableFuture<BrowserView> browser, final String script) {
     this.browser = browser;
     this.browserScript = new Script(script);
   }
 
-  public JavaScriptExecutor replacePlaceholder(String name, Object value) {
+  public JavaScriptExecutor replacePlaceholder(final String name, final Object value) {
     return replacePlaceholder(name, value, 0);
   }
 
-  public JavaScriptExecutor replacePlaceholder(String name, Object value, int flags) {
+  public JavaScriptExecutor replacePlaceholder(final String name, final Object value, final int flags) {
     browserScript.replacePlaceholder(name, value, flags);
     return this;
   }
