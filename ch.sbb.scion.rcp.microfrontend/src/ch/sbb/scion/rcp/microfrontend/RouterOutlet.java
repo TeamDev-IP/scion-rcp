@@ -90,7 +90,8 @@ public final class RouterOutlet extends Composite implements DisposeListener {
         disposables.forEach(IDisposable::dispose);
         disposables.clear();
 
-        browser.executeJavaScript(Resources.readString("js/helpers.js"));
+        String javaScript = Resources.readString("js/helpers.js");
+        browser.executeJavaScript(javaScript);
         var clientToSciRouterOutletMessageDispatcher = installClientToSciRouterOutletMessageDispatcher();
         var sciRouterOutletToClientMessageDispatcher = installSciRouterOutletToClientMessageDispatcher();
 

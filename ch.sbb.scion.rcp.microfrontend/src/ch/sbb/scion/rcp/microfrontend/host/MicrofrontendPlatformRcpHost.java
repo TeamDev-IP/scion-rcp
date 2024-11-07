@@ -84,7 +84,9 @@ public class MicrofrontendPlatformRcpHost {
       shell.open();
     }
 
-    hostBrowser.loadUrl(String.format("http://localhost:%d/host.html", Integer.valueOf(webserver.getPort())));
+    String url = "http://localhost:%d/host.html";
+    int port = Integer.valueOf(webserver.getPort());
+    hostBrowser.loadUrl(String.format(url, port));
     return whenHostBrowser;
   }
 
