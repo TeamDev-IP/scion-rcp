@@ -19,7 +19,6 @@ import org.osgi.service.component.annotations.Reference;
 import ch.sbb.scion.rcp.microfrontend.RouterOutlet;
 import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
 import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewFactory;
-import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewType;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaCallback;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaScriptExecutor;
 import ch.sbb.scion.rcp.microfrontend.host.IntentInterceptorInstaller.IntentInterceptorDescriptor;
@@ -76,7 +75,7 @@ public class MicrofrontendPlatformRcpHost {
         new Resource(Resources.get("js/helpers.js"), "application/javascript", "utf-8"))).start();
 
     // Create the browser and
-    hostBrowser = BrowserViewFactory.createBrowserView(BrowserViewType.JXBROWSER, shell);
+    hostBrowser = BrowserViewFactory.createJxBrowserView(shell);
 
     hostBrowser.addNavigationListener(() -> startHost(config));
 

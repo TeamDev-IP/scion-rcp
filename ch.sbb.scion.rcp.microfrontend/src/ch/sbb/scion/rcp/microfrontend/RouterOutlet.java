@@ -78,7 +78,7 @@ public final class RouterOutlet extends Composite implements DisposeListener {
 
     routerOutletProxy = new RouterOutletProxy(outletName);
 
-    browser = BrowserViewFactory.createBrowserView(BrowserViewType.JXBROWSER, this);
+    browser = BrowserViewFactory.createJxBrowserView(this);
     browser.addNavigationListener(new NavigationListener() {
 
       private final List<IDisposable> disposables = new ArrayList<>();
