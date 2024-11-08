@@ -1,7 +1,6 @@
 package ch.sbb.scion.rcp.microfrontend.host;
 
-import org.eclipse.swt.browser.Browser;
-
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaScriptExecutor;
 import ch.sbb.scion.rcp.microfrontend.interceptor.InterceptorChain;
 import ch.sbb.scion.rcp.microfrontend.model.Message;
@@ -11,16 +10,16 @@ import ch.sbb.scion.rcp.microfrontend.script.Scripts.Helpers;
 
 class InterceptorChainImpl implements InterceptorChain {
 
-  private Browser hostBrowser;
-  private String nextCallbackName;
+  private final BrowserView hostBrowser;
+  private final String nextCallbackName;
 
-  InterceptorChainImpl(Browser hostBrowser, String nextCallbackName) {
+  InterceptorChainImpl(final BrowserView hostBrowser, final String nextCallbackName) {
     this.hostBrowser = hostBrowser;
     this.nextCallbackName = nextCallbackName;
   }
 
   @Override
-  public void doContinue(Message messageOut) {
+  public void doContinue(final Message messageOut) {
     new JavaScriptExecutor(hostBrowser, "/@@storage@@/['/@@nextCallbackName@@/'](/@@helpers.fromJson@@/('/@@messageOut@@/'));")
         .replacePlaceholder("nextCallbackName", nextCallbackName).replacePlaceholder("messageOut", messageOut, Flags.ToJson)
         .replacePlaceholder("storage", Scripts.Storage).replacePlaceholder("helpers.fromJson", Helpers.fromJson).execute();

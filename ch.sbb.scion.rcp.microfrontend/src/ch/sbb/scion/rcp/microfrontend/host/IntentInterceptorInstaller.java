@@ -2,9 +2,9 @@ package ch.sbb.scion.rcp.microfrontend.host;
 
 import java.lang.reflect.Type;
 
-import org.eclipse.swt.browser.Browser;
 import org.osgi.service.component.annotations.Component;
 
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaCallback;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaScriptExecutor;
 import ch.sbb.scion.rcp.microfrontend.interceptor.IntentInterceptor;
@@ -24,7 +24,7 @@ public class IntentInterceptorInstaller {
   /**
    * Installs given intent interceptor.
    */
-  public <T> void install(IntentInterceptorDescriptor<T> interceptorDescriptor, Browser hostBrowser) {
+  public <T> void install(final IntentInterceptorDescriptor<T> interceptorDescriptor, final BrowserView hostBrowser) {
     createJavaInterceptorCallback(interceptorDescriptor, hostBrowser).install()
         .thenAccept(callback -> registerInterceptor(callback, interceptorDescriptor, hostBrowser));
   }
@@ -32,8 +32,9 @@ public class IntentInterceptorInstaller {
   /**
    * Registers the passed interceptor in the SCION Microfrontend Platform. Intercepted messages are delegated to the passed callback.
    */
-  private <T> void registerInterceptor(JavaCallback interceptorCallback, IntentInterceptorDescriptor<T> interceptorDescriptor,
-      Browser hostBrowser) {
+  private <T> void registerInterceptor(final JavaCallback interceptorCallback,
+                                       final IntentInterceptorDescriptor<T> interceptorDescriptor,
+                                       final BrowserView hostBrowser) {
     new JavaScriptExecutor(hostBrowser, Resources.readString("js/host/register-intent-interceptor.js"))
         .replacePlaceholder("interceptorCallback", interceptorCallback.name)
         .replacePlaceholder("type", interceptorDescriptor.type, Flags.ToJson)
@@ -47,7 +48,8 @@ public class IntentInterceptorInstaller {
   /**
    * Creates the Java callback for intercepting intents.
    */
-  private <T> JavaCallback createJavaInterceptorCallback(IntentInterceptorDescriptor<T> interceptorDescriptor, Browser hostBrowser) {
+  private <T> JavaCallback createJavaInterceptorCallback(final IntentInterceptorDescriptor<T> interceptorDescriptor,
+                                                         final BrowserView hostBrowser) {
     return new JavaCallback(hostBrowser, args -> {
       IntentMessage<T> intent = GsonFactory.create().fromJson((String) args[0],
           new ParameterizedType(IntentMessage.class, interceptorDescriptor.payloadClazz));
@@ -62,7 +64,8 @@ public class IntentInterceptorInstaller {
     public IntentInterceptor<T> interceptor;
     public Type payloadClazz;
 
-    public IntentInterceptorDescriptor(String type, Qualifier qualifier, IntentInterceptor<T> interceptor, Type payloadClazz) {
+    public IntentInterceptorDescriptor(final String type, final Qualifier qualifier, 
+                                       final IntentInterceptor<T> interceptor, final Type payloadClazz) {
       this.type = type;
       this.qualifier = qualifier;
       this.interceptor = interceptor;

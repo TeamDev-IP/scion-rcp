@@ -5,11 +5,11 @@ import java.util.concurrent.CompletableFuture;
 
 import java.lang.reflect.Type;
 
-import org.eclipse.swt.browser.Browser;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import ch.sbb.scion.rcp.microfrontend.MicrofrontendPlatform;
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
 import ch.sbb.scion.rcp.microfrontend.host.MicrofrontendPlatformRcpHost;
 import ch.sbb.scion.rcp.microfrontend.interceptor.IntentInterceptor;
 import ch.sbb.scion.rcp.microfrontend.interceptor.MessageInterceptor;
@@ -23,12 +23,12 @@ public class MicrofrontendPlatformImpl implements MicrofrontendPlatform {
   private MicrofrontendPlatformRcpHost microfrontendPlatformRcpHost;
 
   @Override
-  public CompletableFuture<Browser> startHost(final MicrofrontendPlatformConfig config) {
+  public CompletableFuture<BrowserView> startHost(final MicrofrontendPlatformConfig config) {
     return startHost(config, true);
   }
 
   @Override
-  public CompletableFuture<Browser> startHost(final MicrofrontendPlatformConfig config, final boolean headless) {
+  public CompletableFuture<BrowserView> startHost(final MicrofrontendPlatformConfig config, final boolean headless) {
     Objects.requireNonNull(config);
     return microfrontendPlatformRcpHost.start(config, headless);
   }

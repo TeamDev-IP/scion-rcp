@@ -66,6 +66,7 @@
 		<release-plugin.version>3.0.0</release-plugin.version>
 		<deploy-plugin.version>3.1.1</deploy-plugin.version>
 		<javadoc-plugin.version>2.9.1</javadoc-plugin.version>
+		<jxbrowser.version>8.1.0</jxbrowser.version>
 
 		<eclipse.release>2023-09</eclipse.release>
 
@@ -79,6 +80,10 @@
 			<url>https://download.eclipse.org/releases/${eclipse.release}/</url>
 			<layout>p2</layout>
 		</repository>
+		<repository>
+		    <id>com.teamdev</id>
+		    <url>https://europe-maven.pkg.dev/jxbrowser/releases</url>
+ 		</repository>
 	</repositories>
 
 	<modules>
@@ -105,6 +110,8 @@
 
 		<!-- code quality -->
 		<module>ch.sbb.scion.rcp.coveragereport</module>
+		<module>jxbrowser</module>
+		<module>jxbrowser-win64</module>
 	</modules>
 
 
