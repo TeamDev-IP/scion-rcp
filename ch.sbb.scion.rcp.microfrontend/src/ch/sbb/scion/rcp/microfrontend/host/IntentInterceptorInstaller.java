@@ -32,7 +32,8 @@ public class IntentInterceptorInstaller {
   /**
    * Registers the passed interceptor in the SCION Microfrontend Platform. Intercepted messages are delegated to the passed callback.
    */
-  private <T> void registerInterceptor(final JavaCallback interceptorCallback, final IntentInterceptorDescriptor<T> interceptorDescriptor,
+  private <T> void registerInterceptor(final JavaCallback interceptorCallback,
+                                       final IntentInterceptorDescriptor<T> interceptorDescriptor,
                                        final BrowserView hostBrowser) {
     new JavaScriptExecutor(hostBrowser, Resources.readString("js/host/register-intent-interceptor.js"))
         .replacePlaceholder("interceptorCallback", interceptorCallback.name)
