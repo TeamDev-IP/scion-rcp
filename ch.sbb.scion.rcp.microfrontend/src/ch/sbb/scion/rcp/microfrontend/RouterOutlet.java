@@ -26,7 +26,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
-import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewType;
 import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
 import ch.sbb.scion.rcp.microfrontend.browser.BrowserViewFactory;
 import ch.sbb.scion.rcp.microfrontend.browser.JavaCallback;
