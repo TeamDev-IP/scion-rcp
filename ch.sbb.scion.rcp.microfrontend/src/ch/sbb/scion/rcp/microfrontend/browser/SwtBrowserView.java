@@ -14,7 +14,7 @@ import org.eclipse.swt.browser.ProgressEvent;
 import org.eclipse.swt.widgets.Display;
 
 /**
- * Standard SWT implementation of the {@link BrowserView} interface.
+ * A {@link BrowserView} that uses Microsoft Edge via the built-in SWT browser.
  */
 public class SwtBrowserView extends AbstractBrowserView {
 
