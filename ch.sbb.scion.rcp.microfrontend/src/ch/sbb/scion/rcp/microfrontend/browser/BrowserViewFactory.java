@@ -8,19 +8,18 @@ package ch.sbb.scion.rcp.microfrontend.browser;
 import static com.teamdev.jxbrowser.engine.RenderingMode.HARDWARE_ACCELERATED;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Composite;
 
 import com.teamdev.jxbrowser.engine.Engine;
 import com.teamdev.jxbrowser.engine.EngineOptions;
-import com.teamdev.jxbrowser.view.swt.BrowserView;
 
 /**
  * Creates different types of {@link BrowserView} instances.
- * <p>
- * Supports the following browser implementations:
+ * <p>Supports the following browser implementations:
  * <ul>
- * <li>{@link JxBrowserView},</li>
- * <li>{@link SwtBrowserView}.</li>
+ *    <li>{@link JxBrowserView},</li>
+ *    <li>{@link SwtBrowserView}.</li>
  * </ul>
  */
 public final class BrowserViewFactory {
@@ -32,10 +31,10 @@ public final class BrowserViewFactory {
    *          The parent composite in which the browser view will be embedded. Must not be {@code null}.
    * @return A new {@link JxBrowserView} instance embedded in the given composite.
    */
-  public static ch.sbb.scion.rcp.microfrontend.browser.BrowserView createJxBrowserView(final Composite composite) {
+  public static BrowserView createJxBrowserView(final Composite composite) {
     var engine = Engine.newInstance(EngineOptions.newBuilder(HARDWARE_ACCELERATED).licenseKey("your_key").build());
     var browser = engine.newBrowser();
-    return new JxBrowserView(BrowserView.newInstance(composite, browser));
+    return new JxBrowserView(com.teamdev.jxbrowser.view.swt.BrowserView.newInstance(composite, browser));
   }
 
   /**
@@ -45,8 +44,8 @@ public final class BrowserViewFactory {
    *          The parent composite in which the browser view will be embedded. Must not be {@code null}.
    * @return A new {@link SwtBrowserView} instance embedded in the given composite.
    */
-  public static ch.sbb.scion.rcp.microfrontend.browser.BrowserView createSwtBrowserView(final Composite composite) {
-    var browser = new org.eclipse.swt.browser.Browser(composite, SWT.EDGE);
+  public static BrowserView createSwtBrowserView(final Composite composite) {
+    var browser = new Browser(composite, SWT.EDGE);
     return new SwtBrowserView(browser);
   }
 
