@@ -11,7 +11,7 @@ package ch.sbb.scion.rcp.microfrontend.browser;
 public interface NavigationListener {
 
   /**
-   * Invoked when a main frame on a web page has completed loading.
+   * Invoked when the main frame on a web page has completed loading.
    */
   public void onFrameLoadFinished();
 }
