@@ -28,15 +28,15 @@ public class RxJsObservable<T> {
   private String rxjsObservableIIFE;
 
   /**
-   * Initializes a new `RxJsObservable` instance.
+   * Initializes a new {@code RxJsObservable} instance.
    *
-   * @param browser A `CompletableFuture` containing the `BrowserView` instance,
+   * @param browser A {@code CompletableFuture} containing the {@link BrowserView} instance,
    *                used to interact with the browser environment where the RxJS observable will run.
-   * @param rxjsObservableIIFE A `String` containing a JavaScript IIFE (Immediately Invoked Function Expression),
+   * @param rxjsObservableIIFE A {@code String} containing a JavaScript IIFE (Immediately Invoked Function Expression),
    *                           which defines and starts an RxJS observable immediately upon execution.
-   * @param clazz The `Type` of emitted items, allowing for generic types.
-   *              Unlike `Class<?>`, `Type` preserves specific type parameters, making it suitable for 
-   *              returning data structures with parameterized types.
+   * @param clazz The {@code Type} of emitted items, allowing for generic types.
+   *              Unlike {@code Class<?>}, {@code Type} preserves specific type parameters, making it suitable for 
+   *              returning complex data structures with parameterized types.
    */
   public RxJsObservable(final CompletableFuture<BrowserView> browser, final String rxjsObservableIIFE, final Type clazz) {
     this.whenBrowser = browser;
