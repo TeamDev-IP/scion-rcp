@@ -39,7 +39,7 @@ public class RxJsObservable<T> {
    * @param clazz 
    *          the {@code Type} of emitted items, allowing for generic types.
    *          Unlike {@code Class<?>}, {@code Type} preserves specific type parameters, making it suitable for 
-   *          returning complex data structures with parameterized types
+   *          returning complex data structures with parameterized types.
    */
   public RxJsObservable(final CompletableFuture<BrowserView> browser, final String rxjsObservableIIFE, final Type clazz) {
     this.whenBrowser = browser;

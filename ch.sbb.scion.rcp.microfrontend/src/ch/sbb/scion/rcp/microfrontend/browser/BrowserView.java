@@ -18,7 +18,7 @@ public interface BrowserView {
    * Adds a listener to be notified about browser navigation events.
    *
    * @param listener
-   *          the listener to be added. Must not be {@code null}
+   *          the listener to be added. Must not be {@code null}.
    */
   void addNavigationListener(NavigationListener listener);
 
@@ -26,7 +26,7 @@ public interface BrowserView {
    * Removes a previously added navigation listener.
    *
    * @param listener
-   *          the listener to be removed. Must not be {@code null}
+   *          the listener to be removed. Must not be {@code null}.
    */
   void removeNavigationListener(NavigationListener listener);
 
@@ -34,7 +34,7 @@ public interface BrowserView {
    * Loads the specified URL in the browser.
    *
    * @param url
-   *          the URL to load. Must not be {@code null}
+   *          the URL to load. Must not be {@code null}.
    */
   void loadUrl(String url);
 
@@ -42,7 +42,7 @@ public interface BrowserView {
    * Executes the given JavaScript code in the context of the currently loaded page.
    *
    * @param javaScript
-   *          the JavaScript code to execute. Must not be {@code null}
+   *          the JavaScript code to execute. Must not be {@code null}.
    * @return the result of the JavaScript execution, or {@code null} if no return value
    */
   Object executeJavaScript(String javaScript);
@@ -58,11 +58,11 @@ public interface BrowserView {
    * Registers a JavaScript function that can be called from JavaScript code.
    *
    * @param name
-   *          the name of the JavaScript function. Must not be {@code null} or empty
+   *          the name of the JavaScript function. Must not be {@code null} or empty.
    * @param once
    *          if true, the function will be removed after its first invocation
    * @param callback
-   *          the callback to execute when the function is called. Must not be {@code null}
+   *          the callback to execute when the function is called. Must not be {@code null}.
    */
   Disposable registerJsFunction(String name, boolean once, Consumer<Object[]> callback);
 

@@ -28,7 +28,7 @@ public final class BrowserViewFactory {
    * Creates a new {@link JxBrowserView} instance within the provided composite.
    *
    * @param composite
-   *          the parent composite in which the browser view will be embedded. Must not be {@code null}
+   *          the parent composite in which the browser view will be embedded. Must not be {@code null}.
    * @return a new {@link JxBrowserView} instance embedded in the given composite
    */
   public static BrowserView createJxBrowserView(final Composite composite) {
@@ -41,7 +41,7 @@ public final class BrowserViewFactory {
    * Creates a new {@link SwtBrowserView} instance within the provided composite.
    *
    * @param composite
-   *          the parent composite in which the browser view will be embedded. Must not be {@code null}
+   *          the parent composite in which the browser view will be embedded. Must not be {@code null}.
    * @return a new {@link SwtBrowserView} instance embedded in the given composite
    */
   public static BrowserView createSwtBrowserView(final Composite composite) {
