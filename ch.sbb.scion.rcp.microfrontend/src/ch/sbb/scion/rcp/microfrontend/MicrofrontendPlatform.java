@@ -4,8 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import java.lang.reflect.Type;
 
-import org.eclipse.swt.browser.Browser;
-
+import ch.sbb.scion.rcp.microfrontend.browser.BrowserView;
 import ch.sbb.scion.rcp.microfrontend.interceptor.IntentInterceptor;
 import ch.sbb.scion.rcp.microfrontend.interceptor.MessageInterceptor;
 import ch.sbb.scion.rcp.microfrontend.model.MicrofrontendPlatformConfig;
@@ -21,13 +20,13 @@ public interface MicrofrontendPlatform {
    *
    * @see "https://scion-microfrontend-platform-api.vercel.app/classes/MicrofrontendPlatformHost.html#start"
    */
-  CompletableFuture<Browser> startHost(final MicrofrontendPlatformConfig config);
+  CompletableFuture<BrowserView> startHost(final MicrofrontendPlatformConfig config);
 
   /**
    * Starts the SCION Microfrontend Platform host. If headless is false, then an additional shell that contains the microfrontend platform
    * host browser context is opened.
    */
-  CompletableFuture<Browser> startHost(final MicrofrontendPlatformConfig config, boolean headless);
+  CompletableFuture<BrowserView> startHost(final MicrofrontendPlatformConfig config, boolean headless);
 
   /**
    * Registers an interceptor for intercepting messages before being dispatched. Interceptors must be registered prior to starting the host.
